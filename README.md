@@ -1,3 +1,5 @@
+(This repository is cloned from https://github.com/udacity/CppND-Program-a-Concurrent-Traffic-Simulation)
+
 # CPPND: Program a Concurrent Traffic Simulation
 
 <img src="data/traffic_simulation.gif"/>
