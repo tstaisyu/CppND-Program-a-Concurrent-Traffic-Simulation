@@ -1,5 +1,6 @@
 #include <iostream>
 #include <random>
+#include <chrono>
 #include "TrafficLight.h"
 
 /* Implementation of class "MessageQueue" */
@@ -23,7 +24,7 @@ void MessageQueue<T>::send(T &&msg)
 
 /* Implementation of class "TrafficLight" */
 
-/* 
+ 
 TrafficLight::TrafficLight()
 {
     _currentPhase = TrafficLightPhase::red;
@@ -36,7 +37,7 @@ void TrafficLight::waitForGreen()
     // Once it receives TrafficLightPhase::green, the method returns.
 }
 
-TrafficLightPhase TrafficLight::getCurrentPhase()
+TrafficLight::TrafficLightPhase TrafficLight::getCurrentPhase()
 {
     return _currentPhase;
 }
@@ -52,7 +53,33 @@ void TrafficLight::cycleThroughPhases()
     // FP.2a : Implement the function with an infinite loop that measures the time between two loop cycles 
     // and toggles the current phase of the traffic light between red and green and sends an update method 
     // to the message queue using move semantics. The cycle duration should be a random value between 4 and 6 seconds. 
-    // Also, the while-loop should use std::this_thread::sleep_for to wait 1ms between two cycles. 
+    // Also, the while-loop should use std::this_thread::sleep_for to wait 1ms between two cycles.
+    
+    // Source: https://www.albow.net/entry/random-range
+    // Source: https://knowledge.udacity.com/questions/586372
+    std::random_device rd;
+    std::default_random_engine eng(rd());
+    std::uniform_real_distribution<int> distr(4.0, 6.0);
+    /*
+    uint64_t get_rand_range(uint64_t min, uint64_t max) {
+        static std::mt19937_64 mt64(0);
+        std::uniform_real_distribution<double> get_rand_uni_real(min, max);
+        return get_rand_uni_real(mt64);
+    }*/
+    std::uniform_real_distribution<int> cycleDuration = distr(eng);
+    auto now = std::chrono::system_clock::now();
+    while (true) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+        if ((std::chrono::system_clock::now() - now) > cycleDuration) {
+            if (_currentPhase == TrafficLightPhase::red) {
+                _currentPhase = TrafficLightPhase::green;
+            } else {
+                _currentPhase = TrafficLightPhase::red;
+            }
+            //MessageQueue.send(std::move(_currentPhase))
+            now = std::chrono::system_clock::now();
+            cycleDuration = distr(eng);
+        }
+    }
 }
 
-*/
