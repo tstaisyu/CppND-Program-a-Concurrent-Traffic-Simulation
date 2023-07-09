@@ -16,7 +16,7 @@ T MessageQueue<T>::receive()
     // Source: https://knowledge.udacity.com/questions/444528
     _condition.wait(lck, [this] {return !_queue.empty(); });
     T newMessage = std::move(_queue.back());
-    _queue.pop_back();
+    _queue.clear();
     return newMessage;
 
 }
