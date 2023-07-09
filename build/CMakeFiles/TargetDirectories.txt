@@ -1,0 +1,3 @@
+/home/taisyu/Udacity/C++/CppND-Program-a-Concurrent-Traffic-Simulation/build/CMakeFiles/traffic_simulation.dir
+/home/taisyu/Udacity/C++/CppND-Program-a-Concurrent-Traffic-Simulation/build/CMakeFiles/edit_cache.dir
+/home/taisyu/Udacity/C++/CppND-Program-a-Concurrent-Traffic-Simulation/build/CMakeFiles/rebuild_cache.dir
